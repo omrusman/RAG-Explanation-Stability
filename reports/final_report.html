@@ -1,0 +1,138 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>RAG Explanation Stability - Final Report</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 900px; margin: 40px auto; color: #333; padding: 20px; }
+            h1, h2, h3 { color: #2c3e50; }
+            .header { text-align: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 40px; }
+            img { max-width: 100%; height: auto; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; margin-bottom: 40px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+            th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+            th { background-color: #f8f9fa; }
+            .example-box { background-color: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin-bottom: 20px; }
+            .stable-box { background-color: #eafaf1; border-left: 4px solid #2ecc71; padding: 15px; margin-bottom: 20px; }
+            .changed-box { background-color: #fdedec; border-left: 4px solid #e74c3c; padding: 15px; margin-bottom: 20px; }
+            .print-btn { display: block; width: 200px; margin: 0 auto 30px auto; padding: 10px; background-color: #2c3e50; color: white; text-align: center; text-decoration: none; border-radius: 5px; cursor: pointer; border: none; font-size: 16px; }
+            @media print { .print-btn { display: none; } }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>RAG Explanation Stability</h1>
+            <p>Research Report & Findings</p>
+        </div>
+        
+        <button class="print-btn" onclick="window.print()">Print to PDF</button>
+
+        <h2>1. Introduction & Core Findings</h2>
+        <p>This report documents the final experimental findings on whether rule-based explanations in Retrieval-Augmented Generation (RAG) systems are as stable as the predictions they explain. We systematically perturbed the context and queries provided to the LLM and measured the stability of both the generated answer and the logical explanation (rule) using a strict LLM-as-a-Judge methodology (GPT-4o).</p>
+        
+        <h3>Core Research Question</h3>
+        <p><em>Are rule-based explanations in RAG systems as stable as the answers they explain when the question or retrieved context is perturbed?</em></p>
+        <p><strong>Finding: Yes.</strong> Explanation stability and prediction stability are tightly coupled. Overall Rule Stability tracks closely with Answer Stability.</p>
+
+        <h2>2. Quantitative Results</h2>
+        
+        <h3>Final Stability Metrics</h3>
+        
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Total Trials</th>
+            <th>Rule Stability</th>
+            <th>Answer Stability</th>
+            <th>Hidden Instability</th>
+        </tr>
+    
+        <tr>
+            <td><strong>Overall</strong></td>
+            <td>456</td>
+            <td>73.03%</td>
+            <td>74.12%</td>
+            <td>7.24%</td>
+        </tr>
+            
+        <tr>
+            <td><strong>Deletion</strong></td>
+            <td>336</td>
+            <td>67.56%</td>
+            <td>68.75%</td>
+            <td>8.04%</td>
+        </tr>
+            
+        <tr>
+            <td><strong>Reordering</strong></td>
+            <td>72</td>
+            <td>87.5%</td>
+            <td>90.28%</td>
+            <td>6.94%</td>
+        </tr>
+            
+        <tr>
+            <td><strong>Paraphrasing</strong></td>
+            <td>48</td>
+            <td>89.58%</td>
+            <td>87.5%</td>
+            <td>2.08%</td>
+        </tr>
+            </table>
+        
+        <p>The following charts illustrate our quantitative findings across 456 perturbation trials (Deletion, Reordering, and Paraphrasing).</p>
+        
+        <center><img src="figures/stability_comparison.png" alt="Stability Comparison"></center>
+        
+        <h3>The Phenomenon of "Hidden Instability"</h3>
+        <p>We specifically tracked instances where the prediction-level stability held (the model gave the same answer), but explanation-level stability failed (the model used completely different logic). As shown below, this occurs rarely when graded by a strict SOTA model.</p>
+        
+        <center><img src="figures/hidden_instability.png" alt="Hidden Instability"></center>
+
+        <h2>3. Qualitative Examples</h2>
+        <p>Below are examples from our dataset highlighting stable logic, broken logic, and the newly added paraphrasing performance.</p>
+        
+        <h3>Case Study A: Stable Logic (Reordering Perturbation)</h3>
+        <div class="example-box">
+            <strong>Original Question:</strong> What year did the sports facility that the Portland Trail Blazers use open?
+        </div>
+        <div class="stable-box">
+            <strong>Base Rule:</strong><br>
+            The Portland Trail Blazers use the Moda Center as their sports facility. This is supported by the document stating that the Moda Center is the primary indoor sports arena in Portland and is the home of the Portland Trail Blazers. The arena opened in 1995.
+        </div>
+        <div class="stable-box">
+            <strong>Perturbed Rule (Graded: Stable):</strong><br>
+            The Portland Trail Blazers use the Moda Center as their sports facility. The document states that the Moda Center is the primary indoor sports arena in Portland, Oregon, and serves as the home of the Portland Trail Blazers. The arena was opened in 1995.
+        </div>
+
+        <h3>Case Study B: Hidden Instability (Deletion Perturbation)</h3>
+        <div class="example-box">
+            <strong>Original Question:</strong> Are the band that released the album Nothing Lasts...But Nothing Is Lost and Space Tribe both from England?
+        </div>
+        <div class="stable-box">
+            <strong>Base Rule:</strong><br>
+            The band that released the album 'Nothing Lasts...But Nothing Is Lost' is Shpongle, which is described as an English psychedelic music project. Space Tribe is a Goa trance project from London, which is in England. Therefore, both are from England.
+        </div>
+        <div class="changed-box">
+            <strong>Perturbed Rule (Graded: Changed):</strong><br>
+            The album 'Nothing Lasts...But Nothing Is Lost' is by Shpongle, which is confirmed to be an English psychedelic music project. Space Tribe is described as an English trance project, confirming both are from England.
+        </div>
+        
+        <h3>Case Study C: Semantic Robustness (Paraphrasing Perturbation)</h3>
+        <div class="example-box">
+            <strong>Original Question:</strong> Are the band that released the album Nothing Lasts...But Nothing Is Lost and Space Tribe both from England?
+        </div>
+        <div class="example-box" style="border-left-color: #9b59b6;">
+            <strong>Paraphrased Question:</strong> Do both the band behind the album Nothing Lasts...But Nothing Is Lost and Space Tribe originate from England?
+        </div>
+        <div class="stable-box">
+            <strong>Base Rule:</strong><br>
+            The band that released the album 'Nothing Lasts...But Nothing Is Lost' is Shpongle, which is described as an English psychedelic music project. Space Tribe is a Goa trance project from London, which is in England. Therefore, both are from England.
+        </div>
+        <div class="stable-box">
+            <strong>Perturbed Rule (Graded: Stable):</strong><br>
+            The band that released the album 'Nothing Lasts...But Nothing Is Lost' is Shpongle, an English psychedelic music project. Space Tribe is a Goa trance project from London, which is in England. Therefore, both originate from England.
+        </div>
+
+    </body>
+    </html>
+    

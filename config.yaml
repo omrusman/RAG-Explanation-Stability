@@ -1,0 +1,32 @@
+project:
+  name: rag-explanation-stability
+  seed: 42
+
+data:
+  dataset_name: hotpot_qa
+  dataset_config: distractor
+  split: validation
+  output_json: data/processed/selected_hotpotqa.json
+  output_csv: data/processed/candidates_review.csv
+  num_candidates: 50
+  documents_jsonl: data/processed/documents.jsonl
+  retrieval_results: data/processed/retrieval_results.jsonl
+
+retriever:
+  model_name: all-MiniLM-L6-v2
+  index_path: data/processed/faiss_index.bin
+  top_k: 4
+
+generator:
+  model_name: openai/gpt-4o-mini
+  temperature: 0.0
+  baseline_answers_jsonl: data/processed/baseline_answers.jsonl
+  incorrect_baselines_jsonl: data/processed/incorrect_baselines.jsonl
+
+explanation:
+  base_explanations_jsonl: data/processed/base_explanations.jsonl
+  perturbation_results_jsonl: data/processed/perturbation_results.jsonl
+
+evaluation:
+  judge_model: openai/gpt-4o
+  stability_results_json: data/processed/stability_results.json

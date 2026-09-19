@@ -1,0 +1,26 @@
+# Environment and API keys
+.env
+api_key.txt
+*.key
+
+# Python virtual environment & caches
+.venv/
+env/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Logs
+*.log
+
+# OS & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Streamlit config cache
+.streamlit/
