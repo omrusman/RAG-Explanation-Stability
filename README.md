@@ -7,7 +7,7 @@
 
 ---
 
-## 📌 Executive Summary
+## 📌 Summary
 
 While Retrieval-Augmented Generation (RAG) models have advanced multi-hop question answering by grounding generation in retrieved evidence, the **stability of their internal logical explanations** under input perturbations remains poorly understood. 
 
