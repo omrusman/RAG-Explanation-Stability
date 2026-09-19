@@ -54,10 +54,10 @@ Across **456 perturbation trials**, we track three primary metrics:
 
 | Category | Total Trials | Rule Stability (%) | Answer Stability (%) | Hidden Instability (%) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Overall** | **456** | **94.74%** | **95.61%** | **0.88%** |
-| **Document Deletion** | 336 | 93.45% | 94.64% | 1.19% |
-| **Context Reordering** | 72 | 100.00% | 100.00% | 0.00% |
-| **Question Paraphrasing**| 48 | 95.83% | 95.83% | 0.00% |
+| **Overall** | **456** | **73.03%** | **74.12%** | **7.24%** |
+| **Document Deletion** | 336 | 67.56% | 68.75% | 8.04% |
+| **Context Reordering** | 72 | 87.50% | 90.28% | 6.94% |
+| **Question Paraphrasing**| 48 | 89.58% | 87.50% | 2.08% |
 
 ### Visual Breakdown
 
@@ -70,9 +70,9 @@ Across **456 perturbation trials**, we track three primary metrics:
 </p>
 
 ### Key Insights
-- **High Reordering Robustness**: RAG model explanations are highly invariant ($100\%$) to passage order perturbations.
-- **Vulnerability to Missing Context**: Deletion of critical supporting passages accounts for the largest drop in both answer and explanation stability.
-- **Tight Coupling**: Explanation stability tracks closely with prediction stability. "Hidden Instability" (same answer, altered rule) occurs in $<1\%$ of trials.
+- **Reordering Robustness**: RAG model explanations remain highly invariant (~87.5%) to passage order perturbations, though slight variations occur.
+- **Vulnerability to Missing Context**: Deletion of critical supporting passages accounts for the largest drop in both answer and explanation stability (falling to ~67%).
+- **Hidden Instability**: Cases where the model manages to guess the correct answer but completely changes its reasoning pathway occur in ~7% of all perturbation trials.
 
 ---
 
