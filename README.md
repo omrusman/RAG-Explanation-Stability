@@ -70,9 +70,11 @@ Across **456 perturbation trials**, we track three primary metrics:
 </p>
 
 ### Key Insights
-- **Reordering Robustness**: RAG model explanations remain highly invariant (~87.5%) to passage order perturbations, though slight variations occur.
-- **Vulnerability to Missing Context**: Deletion of critical supporting passages accounts for the largest drop in both answer and explanation stability (falling to ~67%).
-- **Hidden Instability**: Cases where the model manages to guess the correct answer but completely changes its reasoning pathway occur in ~7% of all perturbation trials.
+- **Answer accuracy doesn't guarantee reasoning faithfulness.** Across 456 perturbation trials, I found that **7.24%** of cases (and nearly **10%** of cases where the model got the right answer) exhibited *Hidden Instability* — the model preserved its correct final answer while silently fabricating or breaking the logical rule behind it.
+- **Explanations are far more fragile than answers under context loss.** When supporting documents were deleted, Rule Stability dropped to **67.56%**, compared to **87–90%** under reordering and paraphrasing — showing that removing information, not just rearranging or rephrasing it, is what actually breaks the model's reasoning.
+- **The model rarely admits uncertainty.** When it did produce a wrong answer, **93.2%** of the time it was a confident, specific, fabricated guess rather than an honest "I don't know" (only 6.8% of failures were graceful abstentions).
+- **Lexical and positional robustness is strong.** The model's answers and rules were highly stable under document reordering (90.28% / 87.50%) and question paraphrasing (87.50% / 89.58%), suggesting reasoning is tied to semantic content rather than surface phrasing.
+- **Bottom line:** correctness-only evaluation, the industry standard for RAG systems, would have silently missed every one of these failures, since the final answer looked right in each case.
 
 ---
 
