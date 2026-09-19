@@ -193,5 +193,5 @@ python run_pipeline.py --step report
 
 ---
 <p align="center">
-  <i>This README and the associated project codebase were structured and generated with the assistance of Gemini.</i>
+  <i>This README was structured and generated with the assistance of Gemini.</i>
 </p>
