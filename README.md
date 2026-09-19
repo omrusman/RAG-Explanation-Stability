@@ -1,4 +1,4 @@
-# 🧩 Evaluating the Stability of Rule-Based Explanations in Retrieval-Augmented Generation (RAG)
+# 🧩 Are Retrieval-Augmented Generation (RAG) Explanations Stable? Evaluating the Robustness of Rule-Based Reasoning under Perturbations
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![FAISS](https://img.shields.io/badge/FAISS-CPU-orange.svg)](https://github.com/facebookresearch/faiss)
