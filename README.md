@@ -23,12 +23,12 @@ Using **HotpotQA (distractor setting)**, dense vector retrieval (**SentenceTrans
 ## 🏗️ System Architecture & Workflow
 
 <p align="center">
-  <img src="reports/diagrams/Pipeline.drawio.png" alt="Pipeline Architecture" width="850"/>
+  <img src="reports/diagrams/Pipeline.drawio.png" alt="Pipeline Architecture" width="700"/>
 </p>
 
 ### Perturbation Strategies
 <p align="center">
-  <img src="reports/diagrams/Perturbation.drawio.png" alt="Perturbation Engine" width="600"/>
+  <img src="reports/diagrams/Perturbation.drawio.png" alt="Perturbation Engine" width="500"/>
 </p>
 
 The pipeline operates across 8 sequential stages:
@@ -62,11 +62,11 @@ Across **456 perturbation trials**, we track three primary metrics:
 ### Visual Breakdown
 
 <p align="center">
-  <img src="reports/figures/stability_comparison.png" alt="Stability Comparison Chart" width="700"/>
+  <img src="reports/figures/stability_comparison.png" alt="Stability Comparison Chart" width="600"/>
 </p>
 
 <p align="center">
-  <img src="reports/figures/hidden_instability.png" alt="Hidden Instability Chart" width="700"/>
+  <img src="reports/figures/hidden_instability.png" alt="Hidden Instability Chart" width="600"/>
 </p>
 
 ### Key Insights
@@ -191,4 +191,7 @@ python run_pipeline.py --step evaluate
 python run_pipeline.py --step report
 ```
 
-
+---
+<p align="center">
+  <i>This README and the associated project codebase were structured and generated with the assistance of Gemini.</i>
+</p>
